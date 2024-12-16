@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import jsonData from '../serviceInfo.json'
 
 const LeadsForm = () => {
   const [fullname, setFullname] = useState('');
@@ -72,9 +73,9 @@ const LeadsForm = () => {
 
 
   return (
-    <div className="px-6 py-4 max-w-md bg-white rounded-xl shadow-md space-y-4">
-      <h1 className="text-xl font-bold">Query Form</h1>
-      <p>Complete the information below and we'll get back to you soon.</p>
+    <div className="px-6 py-4 max-w-md bg-white text-slate-600 rounded-xl shadow-md h-fit">
+      {/* <h1 className="text-xl font-bold mb-1 text-slate-700">Query Form</h1> */}
+      <p className='mb-1 leading-tight font-semibold text-slate-600'>Complete the information below and we'll get back to you soon.</p>
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Fullname */}
         <div className="flex flex-col">
@@ -138,15 +139,15 @@ const LeadsForm = () => {
             required
           >
             <option value="">Select our service</option>
-            <option value="Web Development">Web Development</option>
-            <option value="SEO">SEO</option>
-            <option value="SMO">SMO</option>
+            {jsonData.map((service) => (
+                <option key={service.serviceName} value={service.serviceName}>{service.serviceName}</option>
+              ))}
           </select>
         </div>
 
         {/* Service Description */}
         <div className="flex flex-col">
-          <label htmlFor="serviceDescription">Service Description</label>
+          <label htmlFor="serviceDescription">Service Description<span className="text-red-500">*</span></label>
           <textarea
             className="border-2 border-gray-300 rounded focus:border-blue-500 focus:ring-4 ring-blue-200 focus:outline-none indent-1 p-1 mt-1 resize-none"
             name="serviceDescription"
@@ -166,7 +167,7 @@ const LeadsForm = () => {
           type="submit"
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:ring-4 ring-blue-300 focus:outline-none"
         >
-          Submit
+          Submit Now
         </button>
       </form>
 
